@@ -99,6 +99,74 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // FAQ Accordion Interaction
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(item => {
+    const trigger = item.querySelector('.faq-trigger');
+    if (trigger) {
+      trigger.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        // Close all items
+        faqItems.forEach(i => {
+          i.classList.remove('active');
+          const t = i.querySelector('.faq-trigger');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        });
+        // If not previously active, open clicked one
+        if (!isActive) {
+          item.classList.add('active');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      });
+    }
+  });
+
+  // Privacy & Legal Modal
+  const legalModal = document.getElementById('legal-modal');
+  const openModalBtns = document.querySelectorAll('.btn-open-legal-modal');
+  const closeModalBtns = document.querySelectorAll('#btn-close-privacy, #btn-accept-privacy');
+
+  function openModal() {
+    if (legalModal) {
+      legalModal.classList.add('open');
+      legalModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
+  function closeModal() {
+    if (legalModal) {
+      legalModal.classList.remove('open');
+      legalModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+  }
+
+  openModalBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  closeModalBtns.forEach(btn => {
+    btn.addEventListener('click', closeModal);
+  });
+
+  if (legalModal) {
+    legalModal.addEventListener('click', (e) => {
+      if (e.target === legalModal) {
+        closeModal();
+      }
+    });
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && legalModal && legalModal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+
   // Contact Form Submission
   const contactForm = document.getElementById('contact-form');
   if (contactForm) {
@@ -108,9 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const phone = document.getElementById('form-phone')?.value.trim();
       const service = document.getElementById('form-service')?.value;
       const message = document.getElementById('form-message')?.value.trim();
+      const rgpd = document.getElementById('form-rgpd');
 
       if (!name || !phone) {
         alert('Por favor, indica tu nombre y teléfono para poder responderte.');
+        return;
+      }
+
+      if (rgpd && !rgpd.checked) {
+        alert('Por favor, acepta la política de privacidad para enviar el mensaje.');
         return;
       }
 
