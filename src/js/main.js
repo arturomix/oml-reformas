@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `🛠️ *Interesado en:* ${service}%0A` +
         `💬 *Detalles del proyecto:*%0A${encodeURIComponent(message || 'Quisiera solicitar presupuesto sin compromiso.')}`;
 
-      const waUrl = `https://wa.me/34611223344?text=${waMsg}`;
+      const waUrl = `https://wa.me/34603732736?text=${waMsg}`;
       window.open(waUrl, '_blank');
 
       // Visual Confirmation feedback

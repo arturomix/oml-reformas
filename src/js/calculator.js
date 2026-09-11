@@ -146,7 +146,7 @@ export function initCalculator() {
       `Me gustaría solicitar una visita gratuita para que puedas ver el espacio y darme un presupuesto cerrado. ¿Cuándo te vendría bien?`;
 
     // WhatsApp phone: Default professional number or international placeholder ready
-    const phoneNumber = "34611223344"; // Editable by client
+    const phoneNumber = "34603732736"; // Editable by client
     waBtn.href = `https://wa.me/${phoneNumber}?text=${waMessage}`;
   }
 
